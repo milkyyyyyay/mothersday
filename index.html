@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Mothers Day</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+            font-family: 'Brush Script MT', cursive;
+            cursor: pointer;
+        }
+
+        .typing-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .typing-text {
+            font-size: 5vmin;
+            color: #a062da;
+            white-space: pre-wrap;
+            margin: 0;
+            text-shadow: 
+                0 0 10px #ffffff,
+                0 0 20px #b19cd9,
+                0 0 30px #b98ace;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .typing-text img {
+            display: inline-block;
+            vertical-align: middle;
+            transform: translateY(-2px);
+            margin-left: 5px;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1em;
+            background-color: #8a2be2;
+            margin-left: 5px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .click-message {
+            margin-top: 20px;
+            font-size: 3vmin;
+            color: #b19cd9;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            animation-delay: 3s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .typing-container:hover .typing-text {
+            transform: scale(1.1);
+            transition: transform 0.3s ease;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 10px;
+            right: 20px;
+            font-family: 'Arial', sans-serif;
+            font-size: 14px;
+            color: #a062da;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            opacity: 0.8;
+        }
+
+        footer p {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="typing-container" id="container">
+        <h1 class="typing-text"></h1>
+        <div class="click-message">Click to continue...</div>
+
+    </div>
+
+    <script>
+        const text = 'Happy Mothers Day Ma..<img src="img/kiss.png" alt="kiss" style="height:50px; vertical-align: middle;">';
+        const typingText = document.querySelector('.typing-text');
+        const container = document.getElementById('container');
+        let charIndex = 0;
+
+        function type() {
+            if (charIndex < text.length) {
+                if (text.slice(charIndex).startsWith('<img')) {
+                    // Find the end of the img tag
+                    const endIndex = text.indexOf('>', charIndex) + 1;
+                    typingText.innerHTML += text.slice(charIndex, endIndex);
+                    charIndex = endIndex;
+                } else {
+                    typingText.innerHTML += text.charAt(charIndex);
+                    charIndex++;
+                }
+                setTimeout(type, 150);
+            }
+        }
+
+        // Start typing animation when page loads
+        window.addEventListener('load', () => {
+            setTimeout(type, 1000);
+        });
+
+        // Add click event to redirect
+        container.addEventListener('click', () => {
+            window.location.href = 'flowers.html';
+        });
+    </script>
+
+    <footer>
+        <p>@blesDev</p>
+    </footer>
+</body>
+</html>
